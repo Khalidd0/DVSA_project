@@ -1,18 +1,22 @@
-# DVSA Vulnerability Analysis Project
+# DVSA Vulnerability Discovery and Remediation Project
 
-This repository contains the analysis, exploitation, and remediation of vulnerabilities in the OWASP DVSA application.
+This repository contains my work for the DVSA (Damn Vulnerable Serverless Application) security project.
 
-## Contents
+## Covered Vulnerabilities
 - Lesson 2: Broken Authentication
-- Exploitation steps
-- Scripts used
-- Fix implementation
 
 ## Tools Used
+- AWS (Lambda, API Gateway, CloudWatch)
 - curl
 - python3
 - jq
-- AWS (Lambda, API Gateway, CloudWatch)
+- Browser DevTools
 
-## Notes
-This project is for educational purposes only.
+## Description
+This repository includes:
+- Exploitation steps
+- Helper scripts used during testing
+- Screenshots showing proof of vulnerabilities
+- Backend fixes applied to resolve issues
+
+All work was performed in a controlled educational environment.
