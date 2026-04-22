@@ -1,4 +1,5 @@
-// Fixed version: removed node-serialize and added safe JSON parsing + action validation
+// FIX: Removed node-serialize and replaced unsafe deserialization with safe JSON parsing and action validation
+// Also prevents injection-based invocation of admin functions
 
 
 
