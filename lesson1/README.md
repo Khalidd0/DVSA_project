@@ -1,16 +1,27 @@
-# Lesson 1 - Event Injection
+# Lesson 1 and Lesson 9 - Event Injection & Vulnerable Dependencies
 
-## Vulnerability Summary
-The DVSA backend used unsafe deserialization (`node-serialize`) to process user input. This allowed attacker-controlled input to be executed as JavaScript code.
+## Summary
+The DVSA backend used an unsafe dependency (`node-serialize`) to process user input. This allowed attacker-controlled input to be executed as JavaScript code inside the Lambda function.
+
+## Vulnerabilities
+- Lesson 1: Event Injection (Code Injection)
+- Lesson 9: Vulnerable Dependencies
+
+## Root Cause
+The application unserialized attacker-controlled input using `node-serialize`, which allows function execution through special payloads like `$$ND_FUNC$$`.
 
 ## Impact
-An attacker can execute arbitrary code inside the Lambda function, leading to Remote Code Execution (RCE).
-
-## Exploit Overview
-A malicious payload containing `$$ND_FUNC$$` was sent to the `/order` endpoint. The backend executed the injected code, which wrote and read a file inside `/tmp` and printed the result in CloudWatch logs.
+An attacker can:
+- execute arbitrary code in Lambda
+- perform file operations
+- potentially access AWS services
 
 ## Result
-The CloudWatch logs showed:
+CloudWatch logs confirmed code execution:
+
 FILE READ SUCCESS: You are reading the contents of my hacked file
 
-This confirms successful code execution.
+## Fix Overview
+- removed `node-serialize` usage
+- replaced unsafe parsing with `JSON.parse`
+- added allowlist validation for actions
