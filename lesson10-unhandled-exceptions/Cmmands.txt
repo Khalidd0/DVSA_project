@@ -1,0 +1,11 @@
+# Malformed request (exploit)
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: $TOKEN_B" \
+--data-raw '{"action":"get"}' | jq
+
+# Verification after fix
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: $TOKEN_B" \
+--data-raw '{"action":"get"}' | jq
