@@ -1,0 +1,14 @@
+# Trigger Lambda
+aws s3 cp ./empty s3://dvsa-receipts-bucket-758388043321-us-east-1/2020/20/20/trigger.raw
+
+# Set credentials (redacted)
+export AWS_ACCESS_KEY_ID="REDACTED"
+export AWS_SECRET_ACCESS_KEY="REDACTED"
+export AWS_SESSION_TOKEN="REDACTED"
+export AWS_DEFAULT_REGION="us-east-1"
+
+# Exploit before fix
+aws dynamodb scan --table-name DVSA-ORDERS-DB --region us-east-1
+
+# Verification after fix
+aws dynamodb scan --table-name DVSA-ORDERS-DB --region us-east-1
