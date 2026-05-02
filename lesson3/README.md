@@ -38,7 +38,7 @@ The system returned:
 ![S3](screenshots/figure1-s3-receipt-files.png)
 
 ### Figure 2 – Access Denied
-![AccessDenied](screenshots/figure2-access-denied.png)
+![AccessDenied](screenshots/Browser showing AccessDenied when accessing receipt.png)
 
 ### Figure 3 – API Error Leakage
 ![Error](screenshots/figure3-api-stack-trace.png)
