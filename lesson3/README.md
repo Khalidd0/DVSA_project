@@ -35,13 +35,13 @@ The system returned:
 ## Evidence
 
 ### Figure 1 – S3 Receipt Files
-![S3](screenshots/figure1-s3-receipt-files.png)
+![S3](<screenshots/S3 bucket showing receipt files.png>)
 
 ### Figure 2 – Access Denied
-![AccessDenied](screenshots/Browser showing AccessDenied when accessing receipt.png)
+![AccessDenied](<screenshots/Browser showing AccessDenied when accessing receipt.png>)
 
 ### Figure 3 – API Error Leakage
-![Error](screenshots/figure3-api-stack-trace.png)
+![Error](<screenshots/Terminal showing API stack trace error.png>)
 
 ## Fix Overview
 - hide internal error messages from users
