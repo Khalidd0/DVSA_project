@@ -47,4 +47,4 @@ The IAM role was found to have excessive permissions that violate the principle 
 - audit IAM roles regularly
 
 ## Video Demonstration
-Video [Google Drive](https://drive.google.com/file/d/14_eVSd0wcCE0ZKr--aIyXRvT_qyYEEC2/view?usp=sharing)
+Video link: [Google Drive](https://drive.google.com/file/d/14_eVSd0wcCE0ZKr--aIyXRvT_qyYEEC2/view?usp=sharing)
