@@ -51,4 +51,4 @@ The system returned:
 - encrypt sensitive data at rest
 
 ## Video Demonstration
-Video: [Google Drive](https://drive.google.com/file/d/1UEljxbKMHeRjQoXIu-v7j9CroxD7_KpT/view?usp=sharing)
+Video link: [Google Drive](https://drive.google.com/file/d/1UEljxbKMHeRjQoXIu-v7j9CroxD7_KpT/view?usp=sharing)
