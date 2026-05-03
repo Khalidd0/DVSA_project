@@ -47,4 +47,9 @@ This confirms the system cannot handle high request volume.
 - monitor traffic with CloudWatch
 
 ## Video Demonstration
+
+▶ Watch online:
 Video link: [Google Drive](https://drive.google.com/file/d/15UI4jkxNHcCrDFIad6DhT51jKQ5MIUxx/view?usp=sharing)
+
+📁 Or download from this repository:
+[Download Video](Lesson6%20Video.mp4)
