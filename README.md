@@ -53,10 +53,14 @@ Each lesson includes:
 
 Each lesson is organized in a separate folder:
 
-- `/lesson 1`
-- `/lesson 2`
+- `/lesson 1 and lesson 9 Event Injection and Vulnerable Dependencies`
+- `/lesson 2 - Broken Authentication`
 - `/lesson 3 - Sensitive Data Exposure`
-- ...
+- `/lesson 4- Insecure Cloud Configuration`
+- `/lesson 5-broken-access-control`
+- `/lesson 6- Denial of Service (DoS)`
+- `/lesson 7-over-privileged`
+- `/lesson 8- Business Logic Vulnerability`
 - `/lesson 10 - Unhandled Exceptions`
 
 Each folder contains a full vulnerability report following a structured format.
