@@ -1,0 +1,11 @@
+# Lesson 4 – IAM Misconfiguration
+
+# No terminal commands used.
+# Analysis performed via AWS Console (IAM service).
+
+# Steps:
+# 1. Open AWS Console
+# 2. Navigate to IAM → Roles
+# 3. Locate DVSA Lambda execution role
+# 4. Inspect attached policies
+# 5. Review S3 permissions and actions

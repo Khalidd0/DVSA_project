@@ -1,0 +1,8 @@
+Fix Strategy for Lesson 4:
+
+- Apply least privilege principle.
+- Remove unnecessary S3 permissions such as PutObject if not needed.
+- Restrict access to specific S3 bucket paths instead of full access.
+- Use IAM policies with precise resource ARNs.
+- Regularly audit IAM roles and permissions.
+- Enable AWS CloudTrail for monitoring access.
